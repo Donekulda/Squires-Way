@@ -1,0 +1,125 @@
+# IronyModManager Conversion Parts Template
+# Use as base when analyzing Examples/IronyModManager/src
+# User configures current_targets to set which parts to convert
+
+phases:
+  - core
+  - parser
+  - io
+  - storage
+  - services
+  - merging
+  - platform
+  - game
+  - localization
+  - di
+  - app
+  - peripheral
+
+parts:
+  - id: core
+    name: Core Models
+    projects:
+      - IronyModManager.Common
+      - IronyModManager.Models.Common
+      - IronyModManager.Models
+      - IronyModManager.Shared
+    dependencies: []
+    phase: core
+    enabled: true
+
+  - id: parser
+    name: Parser
+    projects:
+      - IronyModManager.Parser.Common
+      - IronyModManager.Parser
+    dependencies: [core]
+    phase: parser
+    enabled: true
+
+  - id: io
+    name: IO
+    projects:
+      - IronyModManager.IO.Common
+      - IronyModManager.IO
+    dependencies: [core]
+    phase: io
+    enabled: true
+
+  - id: storage
+    name: Storage
+    projects:
+      - IronyModManager.Storage.Common
+      - IronyModManager.Storage
+    dependencies: [core]
+    phase: storage
+    enabled: true
+
+  - id: services
+    name: Services
+    projects:
+      - IronyModManager.Services.Common
+      - IronyModManager.Services
+    dependencies: [parser, io, storage]
+    phase: services
+    enabled: true
+
+  - id: merging
+    name: Merging
+    projects: []
+    dependencies: [services]
+    phase: merging
+    enabled: true
+    # Note: Merge logic is spread across Services and Parser; map specific namespaces/files when known
+
+  - id: platform
+    name: Platform
+    projects:
+      - IronyModManager.Platform
+    dependencies: [core]
+    phase: platform
+    enabled: true
+
+  - id: game
+    name: Game Handler
+    projects:
+      - IronyModManager.GameHandler
+    dependencies: [platform]
+    phase: game
+    enabled: true
+
+  - id: localization
+    name: Localization
+    projects:
+      - IronyModManager.Localization
+    dependencies: [core]
+    phase: localization
+    enabled: true
+
+  - id: di
+    name: Dependency Injection
+    projects:
+      - IronyModManager.DI
+    dependencies: [core]
+    phase: di
+    enabled: true
+
+  - id: app
+    name: Main Application
+    projects:
+      - IronyModManager
+    dependencies: [merging, game, localization, di]
+    phase: app
+    enabled: true
+
+  - id: peripheral
+    name: Peripheral
+    projects:
+      - IronyModManager.Updater
+      - Irony.AppCastGenerator
+    dependencies: [core]
+    phase: peripheral
+    enabled: true
+
+# User configures which parts to convert in current run
+current_targets: []

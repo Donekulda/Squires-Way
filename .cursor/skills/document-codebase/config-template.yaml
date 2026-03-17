@@ -1,0 +1,22 @@
+# Multi-stage documentation workflow configuration
+# Copy to docs folder or use as reference when invoking the skill
+
+source_dir: "Examples/IronyModManager/src"
+output_dir: "Examples/IronyModManager/docs"
+
+# File patterns to include in analysis (glob)
+include_patterns:
+  - "*.cs"
+  - "*.csproj"
+  - "*.sln"
+  - "*.cshtml"
+  - "*.json"
+
+# Paths/patterns to exclude (glob)
+exclude_patterns:
+  - "bin/**"
+  - "obj/**"
+  - ".git/**"
+  - "**/*.dll"
+  - "**/*.pdb"
+  - "node_modules/**"
