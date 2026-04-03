@@ -121,4 +121,5 @@ parts:
     enabled: true
 
 # Set which parts to convert now (e.g. start with core)
-current_targets: [core]
+# Parser search pipeline ported; next dependency layer is io + storage (parallel), then services.
+current_targets: [io, storage]

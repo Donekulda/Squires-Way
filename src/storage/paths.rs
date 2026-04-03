@@ -1,0 +1,65 @@
+//! Root paths and config-driven resolution (Irony `DiskOperations.ResolveStoragePath`, `IStorageProvider.GetRootStoragePath`).
+
+use std::path::{Path, PathBuf};
+
+use crate::io::path_ops::{resolve_relative_path, standardize_directory_separator};
+
+/// Expands `$VAR` and `%VAR%` in a single path segment (Irony private `ResolveEnvironmentVariable`).
+fn resolve_env_segment(segment: &str) -> String {
+    if segment.is_empty() {
+        return String::new();
+    }
+    if let Some(name) = segment.strip_prefix('$') {
+        if name.is_empty() {
+            return segment.to_string();
+        }
+        return std::env::var(name).unwrap_or_else(|_| segment.to_string());
+    }
+    if segment.starts_with('%') && segment.ends_with('%') && segment.len() > 2 {
+        let name = &segment[1..segment.len() - 1];
+        return std::env::var(name).unwrap_or_else(|_| segment.to_string());
+    }
+    segment.to_string()
+}
+
+/// Joins configured path segments with env expansion, then resolves against `app_base` (Irony `DiskOperations.ResolveStoragePath`).
+///
+/// `config_storage_path` is typically a relative or absolute path string from app settings; `app_base` is the
+/// process base directory (Irony uses `AppDomain.CurrentDomain.BaseDirectory`).
+pub fn resolve_storage_path(config_storage_path: &str, app_base: impl AsRef<Path>) -> PathBuf {
+    let sep = std::path::MAIN_SEPARATOR;
+    let s = standardize_directory_separator(config_storage_path);
+    let expanded: String = s
+        .split(sep)
+        .filter(|x| !x.is_empty())
+        .map(resolve_env_segment)
+        .collect::<Vec<_>>()
+        .join(&sep.to_string());
+    resolve_relative_path(app_base, &expanded)
+}
+
+/// Per-user data directory for SquiresWay using [ProjectDirs](directories::ProjectDirs).
+pub fn default_data_dir() -> Option<PathBuf> {
+    directories::ProjectDirs::from("com", "SquiresWay", "SquiresWay")
+        .map(|p| p.data_dir().to_path_buf())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn resolve_storage_joins_under_base() {
+        let base = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        let p = resolve_storage_path("nested/sub", &base);
+        assert!(
+            p.ends_with("sub"),
+            "expected .../nested/sub ending in sub, got {p:?}"
+        );
+    }
+
+    #[test]
+    fn default_data_dir_some() {
+        assert!(default_data_dir().is_some());
+    }
+}

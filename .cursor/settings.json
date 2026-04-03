@@ -11,6 +11,9 @@
     },
     "cursor-team-kit": {
       "enabled": true
+    },
+    "superpowers": {
+      "enabled": true
     }
   }
 }

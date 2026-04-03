@@ -1,0 +1,62 @@
+{
+  "workspace_slug": "h-Rust-SquiresWay",
+  "transcript_root": "C:\\Users\\mikul\\.cursor\\projects\\h-Rust-SquiresWay\\agent-transcripts",
+  "last_processed_utc": "2026-04-03T18:30:00Z",
+  "parent_transcripts": [
+    {
+      "relative_path": "195f96dd-b724-42f3-adbf-7b546d8a35a0/195f96dd-b724-42f3-adbf-7b546d8a35a0.jsonl",
+      "mtime_utc": "2026-03-17T21:07:47.493Z",
+      "size_bytes": 14040
+    },
+    {
+      "relative_path": "1d24c38a-a08b-4c6b-8086-06d18d43035e/1d24c38a-a08b-4c6b-8086-06d18d43035e.jsonl",
+      "mtime_utc": "2026-03-17T18:38:29.179Z",
+      "size_bytes": 3731
+    },
+    {
+      "relative_path": "39df5f6a-55b1-4f57-a198-9e19c4ea205c/39df5f6a-55b1-4f57-a198-9e19c4ea205c.jsonl",
+      "mtime_utc": "2026-04-03T18:23:16.404Z",
+      "size_bytes": 860
+    },
+    {
+      "relative_path": "5abbd3cd-c8cf-4f28-8360-590a5a5c967c/5abbd3cd-c8cf-4f28-8360-590a5a5c967c.jsonl",
+      "mtime_utc": "2026-03-16T20:55:56.151Z",
+      "size_bytes": 2975
+    },
+    {
+      "relative_path": "99412135-05d9-43e4-b85f-08d7301a44f0/99412135-05d9-43e4-b85f-08d7301a44f0.jsonl",
+      "mtime_utc": "2026-03-17T22:05:05.482Z",
+      "size_bytes": 152309
+    },
+    {
+      "relative_path": "9e146b6a-6cf7-48cd-b743-19ed669f3ae0/9e146b6a-6cf7-48cd-b743-19ed669f3ae0.jsonl",
+      "mtime_utc": "2026-03-17T19:10:07.184Z",
+      "size_bytes": 67135
+    },
+    {
+      "relative_path": "b014911b-f681-4a73-b32c-9aff8cdbdc62/b014911b-f681-4a73-b32c-9aff8cdbdc62.jsonl",
+      "mtime_utc": "2026-03-17T20:05:04.079Z",
+      "size_bytes": 91707
+    },
+    {
+      "relative_path": "ceceb933-8e99-4423-98b3-9a3be917c398/ceceb933-8e99-4423-98b3-9a3be917c398.jsonl",
+      "mtime_utc": "2026-03-17T19:54:44.193Z",
+      "size_bytes": 8050
+    },
+    {
+      "relative_path": "db31d8cb-d828-40da-9b03-ec6c7feca3a8/db31d8cb-d828-40da-9b03-ec6c7feca3a8.jsonl",
+      "mtime_utc": "2026-03-16T21:51:16.620Z",
+      "size_bytes": 72342
+    },
+    {
+      "relative_path": "e33c6cae-d12b-4597-9b33-faa80ddc0d2f/e33c6cae-d12b-4597-9b33-faa80ddc0d2f.jsonl",
+      "mtime_utc": "2026-03-16T21:27:31.968Z",
+      "size_bytes": 66661
+    },
+    {
+      "relative_path": "e7a2fe2b-a564-4847-9930-815f2eb5d4e4/e7a2fe2b-a564-4847-9930-815f2eb5d4e4.jsonl",
+      "mtime_utc": "2026-03-17T19:41:46.843Z",
+      "size_bytes": 85246
+    }
+  ]
+}
