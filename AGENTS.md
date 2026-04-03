@@ -13,3 +13,4 @@
 - `src/parser/` mirrors Irony’s Parser part: it combines application control (e.g. search/filter) with game-definition parsing—not “file parsing only”; treat new code accordingly.
 - Crate layout includes `src/core/`, `src/parser/` (currently exposes `parser::search`), and the Bevy application entry in `src/main.rs`.
 - Paradox Clausewitz plaintext/binary (and CK3-style envelopes) use the `jomini` crate with the `envelope` feature enabled in `Cargo.toml`.
+- Application text and JSON on disk use **UTF-8**; C# reference code uses UTF-16 `string`—do not port length/index semantics blindly. Use `Path`/`OsStr` at OS boundaries and convert explicitly when needed.

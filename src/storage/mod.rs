@@ -6,4 +6,4 @@ mod error;
 pub mod paths;
 
 pub use error::StorageError;
-pub use paths::{default_data_dir, resolve_storage_path};
+pub use paths::{default_data_dir, json_store_root, resolve_storage_path};

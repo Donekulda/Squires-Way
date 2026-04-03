@@ -1,6 +1,22 @@
 # IronyModManager Conversion Parts
+#
+# Ordering: use `parts[].dependencies` as the source of truth for conversion order.
+# The suggested table in docs/plans/csharp-rust-conversion-workflow.md is illustrative only;
+# it can disagree with this graph (e.g. `game` requires `platform`; `app` requires merging, game,
+# localization, and di).
+#
+# Dependency highlights:
+#   - After core: parser, io, and storage can proceed in parallel (each depends only on core).
+#   - services requires parser, io, and storage.
+#   - merging requires services.
+#   - game requires platform (convert platform before game).
+#   - app requires merging, game, localization, and di (typically last among main layers).
+#   - peripheral depends only on core; can be scheduled with other core-only parts.
+#
+# Regenerate project lists from C# when layouts change: run analyze-deps.ps1 or
+# /analyze-csharp-conversion-parts against Examples/IronyModManager/src.
+#
 # Edit current_targets to set which parts to convert in the current run.
-# Run: /analyze-csharp-conversion-parts to regenerate from source.
 
 phases:
   - core
@@ -120,6 +136,6 @@ parts:
     phase: peripheral
     enabled: true
 
-# Set which parts to convert now (e.g. start with core)
-# Parser search pipeline ported; next dependency layer is io + storage (parallel), then services.
-current_targets: [io, storage]
+# Active conversion targets (must respect dependencies above).
+# io + storage slice validated; next layer per graph is services (needs parser, io, storage).
+current_targets: [services]
