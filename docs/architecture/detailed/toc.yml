@@ -4,6 +4,8 @@
   href: io/README.md
 - name: merging
   href: merging/README.md
+- name: platform
+  href: platform/README.md
 - name: parser
   href: parser/README.md
 - name: services

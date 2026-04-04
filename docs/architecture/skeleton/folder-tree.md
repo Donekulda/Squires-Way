@@ -19,7 +19,9 @@ src/
 │   └── path_ops.rs
 ├── merging/
 │   ├── mod.rs
-│   └── merge_top_level.rs
+│   ├── format_code.rs
+│   ├── merge_top_level.rs
+│   └── parser_merger.rs
 ├── parser/
 │   ├── mod.rs
 │   └── search/
@@ -31,9 +33,15 @@ src/
 │       ├── filter_parser.rs
 │       ├── localization_registry.rs
 │       └── results.rs
+├── platform/
+│   ├── mod.rs
+│   ├── clipboard.rs
+│   ├── configuration.rs
+│   └── linux_display.rs
 ├── services/
 │   ├── mod.rs
 │   ├── integration.rs
+│   ├── merge.rs
 │   └── resolver/
 │       ├── mod.rs
 │       ├── game_root_path.rs

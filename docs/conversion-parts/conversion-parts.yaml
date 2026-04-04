@@ -137,6 +137,7 @@ parts:
     enabled: true
 
 # Active conversion targets (must respect dependencies above).
-# Merging slice: `crate::merging::merge_top_level` / `merge_top_level_str` (jomini + format), list helpers in
-# `merge_top_level_children`; `ModMergeService` trait + stub in `crate::services`. Next dependency-first: `platform` (unblocks `game`).
-current_targets: [platform]
+# Platform slice: `crate::platform` — `PlatformConfigurationOptions` (+ nested DTOs), `PlatformConfiguration`,
+# Linux display string helpers, clipboard trait/policy/errors, `host_os()`. Themes/Skia/Avalonia-specific code deferred.
+# Next dependency-first: `game` (Irony GameHandler / launcher paths; requires `platform`).
+current_targets: [game]

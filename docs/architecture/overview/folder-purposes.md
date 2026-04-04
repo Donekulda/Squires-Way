@@ -20,11 +20,19 @@ Filesystem and format helpers: JSON read/write, path normalization, env-style pa
 
 ## merging
 
-Definition merge logic ported from Irony’s `ParserMerger` / patch merge flows. Currently exposes pure merge helpers on script element trees; full parse/format integration is future work.
+Definition merge logic ported from Irony’s `ParserMerger` / patch merge flows. Pure merge helpers on script element trees plus formatting hooks; full pipeline integration is ongoing.
 
 ### (root files)
 
-`merge_top_level` implements list-level merge behavior; `mod` re-exports public API.
+`merge_top_level` (list-level merge), `parser_merger` (orchestration toward Irony `ParserMerger`), `format_code` (text formatting helpers); `mod` re-exports the public API.
+
+## platform
+
+OS and UI-shell settings ported incrementally from Irony `IronyModManager.Platform`: **configuration DTOs** (PascalCase JSON interop with C#-style keys), **Linux display server** string helpers, **clipboard** trait + single-line policy + errors, and **`host_os()`** for diagnostics. Avalonia/Skia themes and native font caches are deferred; Bevy/UI wiring consumes this layer later.
+
+### (root files)
+
+`configuration` (options + `PlatformConfiguration` trait), `linux_display`, `clipboard`; `mod` documents scope and APTV notes.
 
 ## parser
 
@@ -52,4 +60,4 @@ Application data directories and resolved storage paths (e.g. JSON store roots).
 
 ## Crate roots (`lib.rs`, `main.rs`)
 
-`lib.rs` wires crate modules for tests and library consumers. `main.rs` is the binary entry (placeholder until the Bevy app is wired).
+`lib.rs` wires crate modules (`core`, `io`, `merging`, `parser`, `platform`, `services`, `storage`) for tests and library consumers. `main.rs` is the binary entry (placeholder until the Bevy app is wired).

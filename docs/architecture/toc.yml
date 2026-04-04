@@ -19,6 +19,8 @@
       href: detailed/io/README.md
     - name: merging
       href: detailed/merging/README.md
+    - name: platform
+      href: detailed/platform/README.md
     - name: parser
       href: detailed/parser/README.md
     - name: services
@@ -30,6 +32,8 @@
   items:
     - name: parser
       href: combined/parser/README.md
+    - name: platform
+      href: combined/platform/README.md
     - name: services
       href: combined/services/README.md
 - name: Architecture

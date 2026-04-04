@@ -4,5 +4,6 @@ pub mod core;
 pub mod io;
 pub mod merging;
 pub mod parser;
+pub mod platform;
 pub mod services;
 pub mod storage;

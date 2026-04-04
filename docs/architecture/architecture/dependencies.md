@@ -8,6 +8,7 @@ Module-level `crate::` dependencies in `src/` (approximate layering).
 flowchart TB
     subgraph leaf [No in-crate deps]
         merging[merging]
+        platform[platform]
     end
     subgraph foundation [Foundation]
         core[core]
@@ -31,7 +32,8 @@ Notes:
 - **parser** imports **core** only (among non-parser modules).
 - **storage** imports **io**.
 - **services** imports **io**; **storage** appears in integration tests and docs, not as a required `use` in every resolver file.
-- **merging** is currently isolated until wired to a parser pipeline.
+- **merging** is isolated from other layers until fully wired to the parser pipeline.
+- **platform** has no `crate::` dependencies on **core** / **io** / etc.; future UI and **`game`** will consume it.
 
 ## Call flow (path resolution)
 
