@@ -2,6 +2,27 @@
 
 use std::path::{Component, Path, PathBuf};
 
+/// Resolves a single path segment’s environment or placeholder (Irony `PathResolver.ResolveEnvironmentVariable`).
+///
+/// `$VAR` strips **all** leading `$` characters (C# `TrimStart('$')`), then reads `VAR`. `%VAR%` reads `VAR`.
+pub fn resolve_path_segment_environment_variable(variable: &str) -> String {
+    if variable.is_empty() {
+        return String::new();
+    }
+    if variable.starts_with('$') {
+        let name = variable.trim_start_matches('$');
+        if name.is_empty() {
+            return variable.to_string();
+        }
+        return std::env::var(name).unwrap_or_else(|_| variable.to_string());
+    }
+    if variable.len() > 2 && variable.starts_with('%') && variable.ends_with('%') {
+        let name = &variable[1..variable.len() - 1];
+        return std::env::var(name).unwrap_or_else(|_| variable.to_string());
+    }
+    variable.to_string()
+}
+
 /// Replaces `/` and `\` with the platform directory separator (Irony `StandardizeDirectorySeparator`).
 pub fn standardize_directory_separator(s: &str) -> String {
     if s.is_empty() {
@@ -92,5 +113,18 @@ mod tests {
         let r = resolve_relative_path(&base, "foo/../bar");
         assert!(r.ends_with("bar"), "expected .../bar, got {r:?}");
         assert!(!r.ends_with("foo"));
+    }
+
+    #[test]
+    fn resolve_env_segment_strips_all_leading_dollar() {
+        let key = "SQUIRESWAY_TRIM_DOLLAR";
+        unsafe {
+            std::env::set_var(key, "v");
+        }
+        let s = resolve_path_segment_environment_variable(&format!("$${}", key));
+        unsafe {
+            std::env::remove_var(key);
+        }
+        assert_eq!(s, "v");
     }
 }

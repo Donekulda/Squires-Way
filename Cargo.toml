@@ -17,6 +17,7 @@ serde_json = "1"
 
 # —— Paths & filesystem (XDG / Windows / macOS conventions) ——
 directories = "6"
+dirs = "6"
 walkdir = "2"
 tempfile = "3"
 zip = "2"

@@ -1,0 +1,41 @@
+- name: Home
+  href: index.md
+- name: Skeleton
+  href: skeleton/
+  items:
+    - name: Folder Tree
+      href: skeleton/folder-tree.md
+- name: Overview
+  href: overview/
+  items:
+    - name: Folder Purposes
+      href: overview/folder-purposes.md
+- name: Detailed
+  href: detailed/
+  items:
+    - name: core
+      href: detailed/core/README.md
+    - name: io
+      href: detailed/io/README.md
+    - name: merging
+      href: detailed/merging/README.md
+    - name: parser
+      href: detailed/parser/README.md
+    - name: services
+      href: detailed/services/README.md
+    - name: storage
+      href: detailed/storage/README.md
+- name: Combined
+  href: combined/
+  items:
+    - name: parser
+      href: combined/parser/README.md
+    - name: services
+      href: combined/services/README.md
+- name: Architecture
+  href: architecture/
+  items:
+    - name: Interactions
+      href: architecture/interactions.md
+    - name: Dependencies
+      href: architecture/dependencies.md

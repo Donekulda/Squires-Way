@@ -137,5 +137,6 @@ parts:
     enabled: true
 
 # Active conversion targets (must respect dependencies above).
-# io + storage slice validated; next layer per graph is services (needs parser, io, storage).
-current_targets: [services]
+# Merging slice: `crate::merging::merge_top_level` / `merge_top_level_str` (jomini + format), list helpers in
+# `merge_top_level_children`; `ModMergeService` trait + stub in `crate::services`. Next dependency-first: `platform` (unblocks `game`).
+current_targets: [platform]

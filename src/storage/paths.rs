@@ -2,25 +2,10 @@
 
 use std::path::{Path, PathBuf};
 
-use crate::io::path_ops::{resolve_relative_path, standardize_directory_separator};
-
-/// Expands `$VAR` and `%VAR%` in a single path segment (Irony private `ResolveEnvironmentVariable`).
-fn resolve_env_segment(segment: &str) -> String {
-    if segment.is_empty() {
-        return String::new();
-    }
-    if let Some(name) = segment.strip_prefix('$') {
-        if name.is_empty() {
-            return segment.to_string();
-        }
-        return std::env::var(name).unwrap_or_else(|_| segment.to_string());
-    }
-    if segment.starts_with('%') && segment.ends_with('%') && segment.len() > 2 {
-        let name = &segment[1..segment.len() - 1];
-        return std::env::var(name).unwrap_or_else(|_| segment.to_string());
-    }
-    segment.to_string()
-}
+use crate::io::path_ops::{
+    resolve_path_segment_environment_variable, resolve_relative_path,
+    standardize_directory_separator,
+};
 
 /// Joins configured path segments with env expansion, then resolves against `app_base` (Irony `DiskOperations.ResolveStoragePath`).
 ///
@@ -32,7 +17,7 @@ pub fn resolve_storage_path(config_storage_path: &str, app_base: impl AsRef<Path
     let expanded: String = s
         .split(sep)
         .filter(|x| !x.is_empty())
-        .map(resolve_env_segment)
+        .map(resolve_path_segment_environment_variable)
         .collect::<Vec<_>>()
         .join(&sep.to_string());
     resolve_relative_path(app_base, &expanded)

@@ -1,0 +1,12 @@
+- name: core
+  href: core/README.md
+- name: io
+  href: io/README.md
+- name: merging
+  href: merging/README.md
+- name: parser
+  href: parser/README.md
+- name: services
+  href: services/README.md
+- name: storage
+  href: storage/README.md
