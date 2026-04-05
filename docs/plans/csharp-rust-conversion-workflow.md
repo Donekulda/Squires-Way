@@ -54,6 +54,8 @@ For each part in `current_targets`:
    - `src/parser/` for parser part
    - etc.
 
+4. **OS-interacting code:** Split by `#[cfg(windows)]` / `#[cfg(unix)]` (and `target_os` when Linux vs macOS differ). Use `OsString`/`OsStr` and `Path` at OS boundaries; keep UTF-8 internally per `AGENTS.md`. See `.cursor/rules/rust-os-boundaries.mdc` and `src/platform/wide.rs`.
+
 ## Phase 3: Validate
 
 ```bash

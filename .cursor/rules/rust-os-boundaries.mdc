@@ -1,0 +1,28 @@
+---
+description: OS boundaries — cfg targets, OsString/OsStr, UTF-8 vs UTF-16 (SquiresWay / Irony parity)
+globs: src/**/*.rs
+alwaysApply: false
+---
+
+# OS boundaries and C# string parity
+
+Full policy: `AGENTS.md`. UTF-16 helpers and Win32/C# notes: `src/platform/wide.rs`.
+
+## MUST
+
+- Keep **UTF-8** (`String` / `&str`) for app text, JSON, configs, and portable logic. Do not use UTF-16 as the default string type.
+- At **OS APIs**, use **`Path` / `PathBuf`**, **`OsString` / `OsStr`**, and **`std::env::var_os`** / **`vars_os`**. Do not assume environment values or paths are UTF-8 until you convert with an explicit policy (`to_str()`, `to_string_lossy()`, or a dedicated error).
+- On **Windows**, for Win32 **`LPCWSTR`** / wide APIs: use **`std::os::windows::ffi::OsStringExt`** / **`OsStrExt`** (`encode_wide`, `from_wide`) and NUL-terminate when the API requires it. Prefer `crate::platform::wide` (`utf8_to_wide_nul`, etc.) for C# UTF-16 parity.
+- On **Unix** (Linux/macOS shared code paths), use **`std::os::unix::ffi::OsStringExt`** / **`OsStrExt`** for `Vec<u8>` / byte views—not UTF-16.
+- Split **Windows vs Unix** with **`#[cfg(windows)]`** / **`#[cfg(unix)]`**. Use **`#[cfg(target_os = "linux")]`** / **`"macos"`** only when behavior or APIs differ between Unixes.
+- **C# `string`** is UTF-16: do not port `.Length` / index semantics blindly—use `chars()`, `encode_utf16()`, or `platform::wide`.
+
+## SHOULD
+
+- Centralize large per-OS implementations under **`src/platform/`** (or `#[cfg_attr(..., path = "...")]` modules). Avoid sprinkling `#[cfg]` across unrelated domains. Prefer **`pub(crate)`** where possible.
+- Map I/O failures with **`thiserror`** and **`#[from] std::io::Error`** (or typed OS-code variants) in library-style code.
+- Treat subprocess output as **bytes** until you decode at the boundary (UTF-8, lossy, or a defined protocol).
+
+## UNSAFE
+
+- **`OsStr::from_encoded_bytes_unchecked`** only with a **`// SAFETY:`** comment that meets `std`’s contract (same-target `OsStr` bytes; not arbitrary file/network data). Prefer **`to_str`**, **`to_string_lossy`**, **`encode_wide`**.
