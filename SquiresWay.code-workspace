@@ -1,8 +1,37 @@
 {
 	"folders": [
 		{
-			"path": "."
+			"path": ".",
+			"name": "SquiresWay"
+		},
+		{
+			"path": "Examples/IronyModManager",
+			"name": "Irony (reference)"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"rust-analyzer.check.command": "clippy",
+		"rust-analyzer.check.extraArgs": ["--", "-D", "warnings"],
+		"rust-analyzer.cargo.features": "all",
+		"[rust]": {
+			"editor.defaultFormatter": "rust-lang.rust-analyzer",
+			"editor.formatOnSave": true
+		},
+		"files.watcherExclude": {
+			"**/target/**": true,
+			"**/Examples/**/.git/**": true
+		},
+		"search.exclude": {
+			"**/target": true,
+			"**/Examples/**/.git": true
+		}
+	},
+	"extensions": {
+		"recommendations": [
+			"rust-lang.rust-analyzer",
+			"tamasfe.even-better-toml",
+			"serayuzgur.crates",
+			"vadimcn.vscode-lldb"
+		]
+	}
 }

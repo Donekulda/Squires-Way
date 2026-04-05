@@ -1,0 +1,16 @@
+/target/debug/build
+/target/release/build
+/target/debug/deps
+/target/release/deps
+/target/debug/examples
+/target/release/examples
+/target/debug/benches
+/target/release/benches
+/target/debug/tests
+/target/release/tests
+/target/debug/lib.rlib
+/target/release/lib.rlib
+/target/debug/lib.rmeta
+/target/release/lib.rmeta
+/target/debug/lib.rmeta
+/target/debug/incremental
