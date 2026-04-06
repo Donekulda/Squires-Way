@@ -139,5 +139,12 @@ parts:
 # Active conversion targets (must respect dependencies above).
 # Platform slice: `crate::platform` — `PlatformConfigurationOptions` (+ nested DTOs), `PlatformConfiguration`,
 # Linux display string helpers, clipboard trait/policy/errors, `host_os()`. Themes/Skia/Avalonia-specific code deferred.
-# Next dependency-first: `game` (Irony GameHandler / launcher paths; requires `platform`).
-current_targets: [game]
+# Game slice: `crate::game` — `GameHandlerArgs` / `parse_args`, Steam timing constants, `SteamCoordinator` +
+# `SteamRuntime` / `SysSteamRuntime` (Steamworks `Init` stubbed until linked), `launch_external_command`, Steam env +
+# `steam_appid.txt`, `set_working_directory_to_executable_dir`.
+# Localization slice: `crate::localization` — `LocalizationManager`, `FileLocalizationResourceProvider`, `CurrentLocale`
+# helpers (`culture_name` / `set_current`), JSON merge + dot-path keys (Irony `IronyModManager.Localization` core; no DI/UI attributes).
+# DI slice: `crate::di` — `InMemoryMessageBus` / `MessageBusEvent` (C# `IMessageBus` / `IMessageBusEvent` first slice),
+# `DiBootstrap`, `MessageBusResource` (Bevy). SimpleInjector assembly scan / JSON DI / interceptors deferred.
+# Next dependency-first: `app` (merge `merging` + `game` + `localization` + `di` already present in tree).
+current_targets: [app]
