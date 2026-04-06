@@ -1,3 +1,5 @@
+//! Binary entry — delegates to [`SquiresWay::run_app`].
+
 fn main() {
-    println!("Hello, world!");
+    SquiresWay::run_app();
 }

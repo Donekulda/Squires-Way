@@ -146,5 +146,8 @@ parts:
 # helpers (`culture_name` / `set_current`), JSON merge + dot-path keys (Irony `IronyModManager.Localization` core; no DI/UI attributes).
 # DI slice: `crate::di` — `InMemoryMessageBus` / `MessageBusEvent` (C# `IMessageBus` / `IMessageBusEvent` first slice),
 # `DiBootstrap`, `MessageBusResource` (Bevy). SimpleInjector assembly scan / JSON DI / interceptors deferred.
-# Next dependency-first: `app` (merge `merging` + `game` + `localization` + `di` already present in tree).
-current_targets: [app]
+# App slice (done): `crate::app` — Bevy+egui shell; startup order mirrors Irony `Program.Main` (cwd, culture, tracing,
+# panic hook, `ParsedCliArgs`, `PlatformShellConfig`, `try_single_instance` stub); `merging`/`game`/`localization`/`di`
+# integrated via resources + UI demo. Avalonia/NLog/single-instance IPC/fatal subprocess not ported (documented in module rustdoc).
+# Next dependency-first: `peripheral` (Updater, AppCastGenerator) — depends only on `core`.
+current_targets: [peripheral]
